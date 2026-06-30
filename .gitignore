@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+sim_build/
+results.xml
+artifacts/coverage/*.json
+artifacts/waves/*.vcd
+artifacts/waves/*.fst
+artifacts/waves/*.png
+artifacts/waves/*.wdb
+artifacts/waves/xsim.dir/
+!artifacts/coverage/.gitkeep
+!artifacts/waves/.gitkeep
+
+# Vivado/XSIM generated state
+.Xil/
+vivado/xsim_work/
+xsim.dir/
+*.jou
+*.log
+*.str

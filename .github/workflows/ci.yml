@@ -1,0 +1,48 @@
+name: RTL verification
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        simulator: [icarus, verilator]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install simulator and Python dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes iverilog verilator
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Test the Python reference model
+        run: python -m pytest tests/test_reference_model.py
+
+      - name: Run cocotb regression
+        run: make SIM=${{ matrix.simulator }} WAVES=${{ matrix.simulator == 'icarus' && '1' || '0' }}
+
+      - name: Upload verification artifacts
+        if: always() && matrix.simulator == 'icarus'
+        uses: actions/upload-artifact@v4
+        with:
+          name: verification-artifacts
+          path: |
+            results.xml
+            artifacts/coverage/*.json
+            artifacts/waves/*.vcd
+          if-no-files-found: ignore

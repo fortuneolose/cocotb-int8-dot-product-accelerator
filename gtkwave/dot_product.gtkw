@@ -1,0 +1,35 @@
+[*]
+[*] GTKWave Analyzer save file
+[*]
+[dumpfile] "../artifacts/waves/dot_product.vcd"
+[savefile] "dot_product.gtkw"
+[timestart] 0
+[size] 1600 900
+[pos] -1 -1
+*-2.000000 0 0 0 0 0 0 0 0 0 0 0
+[treeopen] dot_product_int8.
+[sst_width] 280
+[signals_width] 240
+[sst_expanded] 1
+[sst_vpaned_height] 260
+@28
+dot_product_int8.clk
+dot_product_int8.rst_n
+@29
+dot_product_int8.in_valid
+dot_product_int8.in_ready
+@22
+dot_product_int8.a_vec[31:0]
+dot_product_int8.b_vec[31:0]
+@29
+dot_product_int8.products_valid_q
+dot_product_int8.result_valid_q
+dot_product_int8.out_valid
+dot_product_int8.out_ready
+@24
+dot_product_int8.out_data[17:0]
+dot_product_int8.result_q[17:0]
+@28
+dot_product_int8.stalled_q
+[pattern_trace] 1
+[pattern_trace] 0
