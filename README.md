@@ -1,112 +1,90 @@
-# Cocotb-verified INT8 dot-product accelerator
+# INT8 Dot-Product Accelerator
 
-A compact RTL verification project for a tiny AI accelerator primitive. The
-design computes a four-lane signed INT8 dot product with full-precision
-accumulation, two pipeline stages, ready/valid flow control, and
-one-vector-per-cycle throughput.
+This repository is the Vivado-oriented handoff for a four-lane signed INT8 dot-product accelerator. It contains the canonical RTL, its Vivado/XSim testbench, timing constraints, the Vivado project snapshot, synthesis and implementation evidence, a synthesized circuit diagram, and a review-friendly waveform video.
 
-```text
- a[4×INT8] ─┐   ┌───────────────┐   ┌────────────┐   result[INT18]
-            ├──▶│ 4 multipliers │──▶│ adder + reg│────────────────▶
- b[4×INT8] ─┘   └───────────────┘   └────────────┘
-                    stage 1              stage 2
-                 ready/valid elastic backpressure
-```
+The original repository layout was replaced with the cleaned Vivado content from the local project. The checked-in artifacts make the current design inspectable without treating an uncommitted Vivado workspace as the source of truth.
 
-## What is verified
+## What the accelerator computes
 
-- Python golden reference model with explicit two's-complement packing
-- Directed signed-arithmetic corners, including `-128 × -128`
-- 300 seeded randomized vectors by default
-- Random valid gaps and bursty output backpressure
-- Ordered scoreboard for loss, duplication, reordering, and data corruption
-- Output-stability assertions in both cocotb and SystemVerilog
-- Reset flushing and fixed unstalled latency
-- Functional coverage exported as readable JSON
-- Icarus Verilog and Verilator regressions in GitHub Actions
-- VCD generation and a reproducible GTKWave screenshot
+For each accepted transaction, the circuit calculates:
 
-The full verification intent is in
-[docs/verification-plan.md](docs/verification-plan.md), with coverage bins and
-known gaps in [docs/coverage-notes.md](docs/coverage-notes.md).
+    result = a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3]
 
-## Quick start
+The operands are signed two's-complement INT8 values. Each packed input vector is 32 bits wide, with lane 0 in bits 7:0, lane 1 in bits 15:8, lane 2 in bits 23:16, and lane 3 in bits 31:24. The signed result is 18 bits wide, which provides headroom for the sum of four signed 8-by-8 products.
 
-Prerequisites are Python 3.10+, GNU Make, and either Icarus Verilog or
-Verilator.
+The top-level module is dot_product_int8_vivado in rtl/dot_product_int8_vivado.v. It uses a ready/valid interface:
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
+- An input transfer occurs when in_valid and in_ready are high on a rising clock edge.
+- An output transfer occurs when out_valid and out_ready are high on a rising clock edge.
+- out_data remains stable while out_valid is high and the consumer is applying backpressure.
+- The two registered pipeline stages provide elastic buffering. Throughput can reach one vector per cycle after filling, while the exact input-to-output delay depends on whether either side stalls.
 
-make unit
-make SIM=icarus
-make SIM=verilator
-```
+## Architecture
 
-On Windows, where GNU Make may not be on `PATH`, use the cocotb runner:
+The implementation has two sequential stages:
 
-```powershell
-py -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-python tools\run.py --sim icarus
-```
+1. Four signed INT8 multipliers unpack the operands and register the four 16-bit products.
+2. The registered products are sign-extended, summed, and stored in the output stage.
 
-Change the deterministic workload without editing the test:
+The synthesized view of this structure is available at [docs/diagrams/int8_dot_product_synth.svg](docs/diagrams/int8_dot_product_synth.svg). The SVG is generated from the Vivado synthesized design and is the most direct visual reference for the current RTL structure.
 
-```bash
-RANDOM_SEED=42 NUM_TRANSACTIONS=2000 make SIM=icarus
-```
+## Verification
 
-## Waveforms
+The Vivado testbench is [tb/tb_dot_product_int8_vivado.sv](tb/tb_dot_product_int8_vivado.sv). It exercises seven directed vectors, including positive and negative products, the signed INT8 corner case, zero, and output backpressure. The packaged XSim log reports:
 
-![GTKWave view of randomized ready/valid traffic](docs/gtkwave-waveform.png)
+    VIVADO RTL PASS: 7 vectors checked; signed INT8 corner = 65536
 
-The screenshot above is captured from the regression-generated VCD, not a
-drawn timing diagram. Generate the waveform and open the checked-in layout:
+The expected signed results in the run are 70, 65536, -70, -32510, -540, 64516, and 0. The checked-in waveform database is [artifacts/waves/vivado_dot_product.wdb](artifacts/waves/vivado_dot_product.wdb), and the text log is [artifacts/waves/vivado_xsim.log](artifacts/waves/vivado_xsim.log).
 
-```bash
-make SIM=icarus WAVES=1
-gtkwave artifacts/waves/dot_product.vcd gtkwave/dot_product.gtkw
-```
+## Reproduce the Vivado run
 
-On Linux, the screenshot itself can be reproduced headlessly with:
+The portable Tcl entry point creates a fresh project under build/dot_product_int_8 using the target part xczu3eg-sfva625-1L-i:
 
-```bash
-bash tools/capture_waveform.sh
-```
+    vivado -mode batch -source vivado/create_project.tcl
 
-The CI run uploads the VCD, functional coverage JSON, and JUnit XML as the
-`verification-artifacts` artifact.
+To run XSim and write a waveform database into artifacts/waves, use PowerShell:
 
-## Repository layout
+    powershell -ExecutionPolicy Bypass -File vivado\run_showcase.ps1
 
-```text
-rtl/dot_product_int8.sv       synthesizable two-stage RTL and assertions
-tests/reference_model.py      Python golden model and packing helpers
-tests/test_dot_product.py     cocotb drivers, scoreboard, checks, coverage
-tests/test_reference_model.py unit tests for the model itself
-tools/run.py                  cross-platform Icarus/Verilator runner
-tools/capture_waveform.sh     reproducible headless GTKWave screenshot
-gtkwave/dot_product.gtkw      review-ready waveform layout
-docs/                         verification plan, coverage notes, screenshot
-.github/workflows/ci.yml      two-simulator regression
-```
+Add -OpenGui to launch Vivado with the waveform database and a curated signal layout:
 
-## Interface
+    powershell -ExecutionPolicy Bypass -File vivado\run_showcase.ps1 -OpenGui
 
-Lane zero occupies the least-significant byte of each packed vector.
+The GUI-oriented Tcl file is [vivado/open_waveform.tcl](vivado/open_waveform.tcl). The repository also retains the original project snapshot at [vivado/dot_product_int_8.xpr](vivado/dot_product_int_8.xpr); the portable Tcl flow is preferred when opening the project on another machine.
 
-| Signal | Direction | Meaning |
-|---|---|---|
-| `a_vec[31:0]` | input | Four packed signed INT8 operands |
-| `b_vec[31:0]` | input | Four packed signed INT8 operands |
-| `in_valid/in_ready` | input/output | Input transfer handshake |
-| `out_valid/out_ready` | output/input | Result transfer handshake |
-| `out_data[17:0]` | output | Full-precision signed result |
+## Waveform showcase
 
-The default accumulator width is
-`2 × DATA_WIDTH + ceil(log2(LANES)) = 18`, so no saturation or wraparound is
-expected for any four-lane INT8 input.
+The [waveform showcase video](docs/media/int8_dot_product_waveform_showcase.mp4) pairs the ready/valid waveform with an animated view of the datapath: operand unpacking, four signed multipliers, sign extension and accumulation, and the registered output. It highlights reset, normal streaming, a consumer stall, stable output data during backpressure, and queue drain after out_ready returns.
+
+The MP4 is a rendered companion for code review and documentation. The native Vivado WDB remains authoritative for signal-level inspection and can be opened with the Tcl flow above; the video is not presented as a raw screen recording of a particular Vivado installation.
+
+## FPGA implementation relevance
+
+The timing constraint in [constraints/dot_product_int8_timing.xdc](constraints/dot_product_int8_timing.xdc) models a 100 MHz clock with 2 ns input and output delays. The packaged post-route reports show:
+
+- 298 LUTs
+- 84 flip-flops
+- 41 CARRY8 primitives
+- 0 DSP blocks and 0 block RAMs
+- 1.538 ns WNS (positive timing slack) and 0 ns total negative slack (TNS) in the packaged timing summary
+
+The design currently has no board-specific pin assignments or I/O standards. Consequently, the implementation evidence is useful for resource and timing review, but it is not a board-ready bitstream handoff. The packaged DRC report records the expected UCIO-1 and NSTD-1 constraints warnings for unspecified I/O. A future board implementation must add the board master XDC, clock/reset strategy, physical I/O mapping, and any required CDC or host-streaming wrapper before bitstream generation.
+
+See [docs/fpga-implementation.md](docs/fpga-implementation.md) for the path from RTL simulation to a deployable FPGA design and the remaining bring-up work.
+
+## Repository contents
+
+- [rtl/dot_product_int8_vivado.v](rtl/dot_product_int8_vivado.v) — canonical synthesizable accelerator RTL.
+- [tb/tb_dot_product_int8_vivado.sv](tb/tb_dot_product_int8_vivado.sv) — self-checking Vivado XSim testbench.
+- [constraints/dot_product_int8_timing.xdc](constraints/dot_product_int8_timing.xdc) — 100 MHz timing model.
+- [vivado/dot_product_int_8.xpr](vivado/dot_product_int_8.xpr) — captured Vivado project snapshot.
+- [vivado/create_project.tcl](vivado/create_project.tcl) — portable project generator.
+- [vivado/run_showcase.ps1](vivado/run_showcase.ps1) — XSim/WDB runner with optional GUI launch.
+- [docs/diagrams/int8_dot_product_synth.svg](docs/diagrams/int8_dot_product_synth.svg) — synthesized circuit diagram.
+- [docs/media/int8_dot_product_waveform_showcase.mp4](docs/media/int8_dot_product_waveform_showcase.mp4) — waveform and datapath video.
+- [artifacts/reports](artifacts/reports) — synthesis, implementation, timing, and DRC evidence.
+- [artifacts/checkpoints/int8_dot_product_post_route.dcp](artifacts/checkpoints/int8_dot_product_post_route.dcp) — post-route Vivado checkpoint.
+
+## Scope and limitations
+
+This repository focuses on the accelerator core and its Vivado evidence. It does not yet include a board wrapper, AXI-stream or memory-mapped host interface, board pin constraints, clock-generation IP, software driver, or a completed bitstream. Those are integration tasks for the target FPGA platform.

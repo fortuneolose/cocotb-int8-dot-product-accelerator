@@ -1,22 +1,22 @@
+# Generated Vivado and simulator state
+build/
+vivado/.Xil/
+vivado/xsim.dir/
+vivado/dot_product_int_8.cache/
+vivado/dot_product_int_8.hw/
+vivado/dot_product_int_8.ip_user_files/
+vivado/dot_product_int_8.runs/
+vivado/dot_product_int_8.sim/
+vivado/*.jou
+vivado/*.log
+vivado/*.pb
+vivado/*.str
+
+# Python tooling state
 __pycache__/
 *.py[cod]
 .pytest_cache/
-.venv/
-sim_build/
-results.xml
-artifacts/coverage/*.json
-artifacts/waves/*.vcd
-artifacts/waves/*.fst
-artifacts/waves/*.png
-artifacts/waves/*.wdb
-artifacts/waves/xsim.dir/
-!artifacts/coverage/.gitkeep
-!artifacts/waves/.gitkeep
-
-# Vivado/XSIM generated state
-.Xil/
-vivado/xsim_work/
-xsim.dir/
-*.jou
-*.log
-*.str
+# Root-level Vivado session files
+/vivado*.jou
+/vivado*.log
+/dfx_runtime.txt
