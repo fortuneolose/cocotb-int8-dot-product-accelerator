@@ -169,6 +169,12 @@ make SIM=icarus WAVES=1
 gtkwave artifacts/waves/dot_product.vcd gtkwave/dot_product.gtkw
 ```
 
+## Verified Vivado XSim waveform video
+
+[Watch the verified signed INT8 dot-product waveform capture](docs/int8_dot_product_xsim_verified_showcase.mp4)
+
+This video visualizes the Vivado XSim results for all seven test vectors, including the signed INT8 corner case producing 65536.
+
 ## Vivado 2025.1.1 implementation
 
 ### Target-selection correction
