@@ -54,9 +54,9 @@ The GUI-oriented Tcl file is [vivado/open_waveform.tcl](vivado/open_waveform.tcl
 
 ## Waveform showcase
 
-The [waveform showcase video](docs/media/int8_dot_product_waveform_showcase.mp4) pairs the ready/valid waveform with an animated view of the datapath: operand unpacking, four signed multipliers, sign extension and accumulation, and the registered output. It highlights reset, normal streaming, a consumer stall, stable output data during backpressure, and queue drain after out_ready returns.
+The [verified Vivado XSim waveform video](docs/media/int8_dot_product_xsim_verified_showcase.mp4) visualizes the ready/valid interface and signed results for all seven directed test vectors: 70, 65536, −70, −32510, −540, 64516, and 0. It also shows output backpressure and stable result data while `out_ready` is low.
 
-The MP4 is a rendered companion for code review and documentation. The native Vivado WDB remains authoritative for signal-level inspection and can be opened with the Tcl flow above; the video is not presented as a raw screen recording of a particular Vivado installation.
+The MP4 was reconstructed from signal transitions exported by Vivado XSim. The native Vivado WDB remains authoritative for detailed signal-level inspection and can be opened using the Tcl flow above.
 
 ## FPGA implementation relevance
 
@@ -81,7 +81,7 @@ See [docs/fpga-implementation.md](docs/fpga-implementation.md) for the path from
 - [vivado/create_project.tcl](vivado/create_project.tcl) — portable project generator.
 - [vivado/run_showcase.ps1](vivado/run_showcase.ps1) — XSim/WDB runner with optional GUI launch.
 - [docs/diagrams/int8_dot_product_synth.svg](docs/diagrams/int8_dot_product_synth.svg) — synthesized circuit diagram.
-- [docs/media/int8_dot_product_waveform_showcase.mp4](docs/media/int8_dot_product_waveform_showcase.mp4) — waveform and datapath video.
+- [docs/media/int8_dot_product_xsim_verified_showcase.mp4](docs/media/int8_dot_product_xsim_verified_showcase.mp4) — waveform and datapath video.
 - [artifacts/reports](artifacts/reports) — synthesis, implementation, timing, and DRC evidence.
 - [artifacts/checkpoints/int8_dot_product_post_route.dcp](artifacts/checkpoints/int8_dot_product_post_route.dcp) — post-route Vivado checkpoint.
 
