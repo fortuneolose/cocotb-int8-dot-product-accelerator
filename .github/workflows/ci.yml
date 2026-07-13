@@ -36,6 +36,10 @@ jobs:
       - name: Run cocotb regression
         run: make SIM=${{ matrix.simulator }} WAVES=${{ matrix.simulator == 'icarus' && '1' || '0' }}
 
+      - name: Verify Vivado-compatible Verilog translation
+        if: matrix.simulator == 'icarus'
+        run: make vivado-rtl-smoke vivado-equivalence showcase-waveform
+
       - name: Upload verification artifacts
         if: always() && matrix.simulator == 'icarus'
         uses: actions/upload-artifact@v4
@@ -45,4 +49,6 @@ jobs:
             results.xml
             artifacts/coverage/*.json
             artifacts/waves/*.vcd
+            docs/showcase-waveform.svg
+            sim_build/showcase/simulation.log
           if-no-files-found: ignore

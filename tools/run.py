@@ -28,7 +28,9 @@ def main() -> None:
 
     build_args = ["-Wall"]
     if args.sim == "icarus":
-        build_args.append("-g2012")
+        # The cocotb scoreboard duplicates the RTL's immediate protocol
+        # assertions, which are not implemented by every Icarus release.
+        build_args.extend(("-g2012", "-DSYNTHESIS"))
         if args.waves:
             build_args.append("-DDUMP_WAVES")
     else:

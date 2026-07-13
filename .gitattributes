@@ -6,3 +6,6 @@
 *.gtkw text eol=lf
 Makefile text eol=lf
 *.png binary
+
+# Vivado's fixed-width reports intentionally contain trailing padding.
+docs/results/vivado/*.rpt text eol=lf whitespace=-trailing-space,-blank-at-eof

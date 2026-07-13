@@ -33,6 +33,13 @@ module tb_dot_product_showcase;
 
     always #5 clk = ~clk;
 
+`ifdef DUMP_SHOWCASE_WAVES
+    initial begin
+        $dumpfile("artifacts/waves/showcase.vcd");
+        $dumpvars(0, tb_dot_product_showcase);
+    end
+`endif
+
     task automatic send_vector(
         input integer a0,
         input integer a1,

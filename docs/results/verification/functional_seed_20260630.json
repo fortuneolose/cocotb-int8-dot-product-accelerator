@@ -1,0 +1,29 @@
+{
+  "samples": 300,
+  "accepted_outputs": 300,
+  "input_classes": [
+    "all_nonnegative",
+    "all_nonpositive",
+    "all_zero",
+    "contains_int8_extreme",
+    "contains_zero",
+    "mixed_sign_values"
+  ],
+  "result_signs": [
+    "negative",
+    "positive",
+    "zero"
+  ],
+  "result_magnitudes": [
+    "large_16384_plus",
+    "medium_256_16383",
+    "small_1_255",
+    "zero"
+  ],
+  "protocol": {
+    "backpressure_cycles": 125,
+    "input_stall_cycles": 93,
+    "consecutive_accepts": 176,
+    "max_scoreboard_depth": 2
+  }
+}

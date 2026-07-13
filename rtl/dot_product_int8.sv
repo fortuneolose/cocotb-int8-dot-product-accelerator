@@ -32,6 +32,9 @@ module dot_product_int8 #(
     logic                          result_valid_q;
     logic                          stage1_ready;
     logic                          stage2_ready;
+    integer                        sum_lane;
+    integer                        reset_lane;
+    integer                        product_lane;
 
     assign stage2_ready = ~result_valid_q | out_ready;
     assign stage1_ready = ~products_valid_q | stage2_ready;
@@ -41,10 +44,10 @@ module dot_product_int8 #(
 
     always_comb begin
         sum_products = '0;
-        for (integer lane = 0; lane < LANES; lane = lane + 1) begin
+        for (sum_lane = 0; sum_lane < LANES; sum_lane = sum_lane + 1) begin
             sum_products = sum_products
-                + {{(ACC_WIDTH-PROD_WIDTH){products[lane][PROD_WIDTH-1]}},
-                   products[lane]};
+                + {{(ACC_WIDTH-PROD_WIDTH){products[sum_lane][PROD_WIDTH-1]}},
+                   products[sum_lane]};
         end
     end
 
@@ -53,8 +56,8 @@ module dot_product_int8 #(
             products_valid_q <= 1'b0;
             result_valid_q   <= 1'b0;
             result_q         <= '0;
-            for (integer lane = 0; lane < LANES; lane = lane + 1) begin
-                products[lane] <= '0;
+            for (reset_lane = 0; reset_lane < LANES; reset_lane = reset_lane + 1) begin
+                products[reset_lane] <= '0;
             end
         end else begin
             if (stage2_ready) begin
@@ -67,16 +70,18 @@ module dot_product_int8 #(
             if (stage1_ready) begin
                 products_valid_q <= in_valid;
                 if (in_valid) begin
-                    for (integer lane = 0; lane < LANES; lane = lane + 1) begin
-                        products[lane] <=
-                            $signed(a_vec[lane*DATA_WIDTH +: DATA_WIDTH])
-                            * $signed(b_vec[lane*DATA_WIDTH +: DATA_WIDTH]);
+                    for (product_lane = 0; product_lane < LANES;
+                         product_lane = product_lane + 1) begin
+                        products[product_lane] <=
+                            $signed(a_vec[product_lane*DATA_WIDTH +: DATA_WIDTH])
+                            * $signed(b_vec[product_lane*DATA_WIDTH +: DATA_WIDTH]);
                     end
                 end
             end
         end
     end
 
+`ifndef SYNTHESIS
     // Protocol assertion: a blocked output must remain valid and stable.
     logic                         stalled_q;
     logic signed [ACC_WIDTH-1:0] stalled_data_q;
@@ -105,6 +110,7 @@ module dot_product_int8 #(
             $fatal(1, "ACC_WIDTH is too narrow for a full-precision result");
         end
     end
+`endif
 
 `ifdef DUMP_WAVES
     initial begin
