@@ -1,51 +1,86 @@
+[CmdletBinding()]
 param(
-    [string]$VivadoBin = "C:\Xilinx\2025.1\Vivado\bin",
     [switch]$OpenGui
 )
 
 $ErrorActionPreference = "Stop"
-$ProjectRoot = Split-Path -Parent $PSScriptRoot
-$BuildDirectory = Join-Path $PSScriptRoot "xsim_work"
-$WaveDatabase = Join-Path $ProjectRoot "artifacts\waves\vivado_dot_product.wdb"
-$WaveDatabaseForXsim = $WaveDatabase.Replace("\", "/")
-$RunScriptForXsim = (Join-Path $PSScriptRoot "run_xsim.tcl").Replace("\", "/")
-$XsimLog = Join-Path $BuildDirectory "xsim.log"
+$repoRoot = Split-Path -Parent $PSScriptRoot
+$buildRoot = Join-Path $repoRoot "build"
+$workDir = Join-Path $buildRoot "xsim_work"
+$waveDir = Join-Path $repoRoot "artifacts\waves"
+$wdb = Join-Path $waveDir "vivado_dot_product.wdb"
+$createProject = Join-Path $PSScriptRoot "create_project.tcl"
+$runTcl = Join-Path $PSScriptRoot "run_xsim.tcl"
+$openWaveform = Join-Path $PSScriptRoot "open_waveform.tcl"
+$simLog = Join-Path $waveDir "vivado_xsim.log"
 
-New-Item -ItemType Directory -Force -Path $BuildDirectory | Out-Null
-Push-Location $BuildDirectory
+New-Item -ItemType Directory -Force -Path $buildRoot, $workDir, $waveDir | Out-Null
 
-try {
-    & (Join-Path $VivadoBin "xvlog.bat") --sv `
-        (Join-Path $ProjectRoot "rtl\dot_product_int8.sv") `
-        (Join-Path $PSScriptRoot "tb_dot_product_showcase.sv")
-    if ($LASTEXITCODE -ne 0) { throw "xvlog failed with exit code $LASTEXITCODE" }
-
-    & (Join-Path $VivadoBin "xelab.bat") --debug typical `
-        tb_dot_product_showcase --snapshot dot_product_showcase_sim
-    if ($LASTEXITCODE -ne 0) { throw "xelab failed with exit code $LASTEXITCODE" }
-
-    & (Join-Path $VivadoBin "xsim.bat") dot_product_showcase_sim `
-        -tclbatch $RunScriptForXsim `
-        -wdb $WaveDatabaseForXsim
-    if ($LASTEXITCODE -ne 0) { throw "xsim failed with exit code $LASTEXITCODE" }
+$vivadoBin = $env:VIVADO_BIN
+if ([string]::IsNullOrWhiteSpace($vivadoBin)) {
+    $foundVivado = Get-Command vivado.bat -ErrorAction SilentlyContinue
+    if ($null -ne $foundVivado) {
+        $vivadoBin = Split-Path -Parent $foundVivado.Source
+    } else {
+        $vivadoBin = "C:\Xilinx\2025.1.1\Vivado\bin"
+    }
 }
-finally {
+
+$vivado = Join-Path $vivadoBin "vivado.bat"
+$xvlog = Join-Path $vivadoBin "xvlog.bat"
+$xelab = Join-Path $vivadoBin "xelab.bat"
+$xsim = Join-Path $vivadoBin "xsim.bat"
+
+foreach ($tool in @($vivado, $xvlog, $xelab, $xsim)) {
+    if (-not (Test-Path -LiteralPath $tool)) {
+        throw "Vivado executable not found: $tool. Set VIVADO_BIN to the Vivado bin directory."
+    }
+}
+
+function Invoke-Checked {
+    param(
+        [string]$Program,
+        [string[]]$Arguments
+    )
+    & $Program @Arguments
+    if ($LASTEXITCODE -ne 0) {
+        throw "$Program failed with exit code $LASTEXITCODE"
+    }
+}
+
+Invoke-Checked $vivado @("-mode", "batch", "-source", $createProject)
+
+Push-Location $workDir
+try {
+    $rtl = Join-Path $repoRoot "rtl\dot_product_int8_vivado.v"
+    $tb = Join-Path $repoRoot "tb\tb_dot_product_int8_vivado.sv"
+    Invoke-Checked $xvlog @("-sv", "-work", "xil_defaultlib", $rtl, $tb)
+    Invoke-Checked $xelab @("-debug", "typical", "-timescale", "1ns/1ps", "-s", "tb_dot_product_int8_vivado", "xil_defaultlib.tb_dot_product_int8_vivado")
+
+    $runTclForXsim = $runTcl.Replace('\', '/')
+    $wdbForXsim = $wdb.Replace('\', '/')
+    if (Test-Path -LiteralPath $wdb) {
+        Remove-Item -LiteralPath $wdb -Force
+    }
+
+    $xsimOutput = & $xsim @("tb_dot_product_int8_vivado", "-wdb", $wdbForXsim, "-t", $runTclForXsim) 2>&1
+    $xsimExitCode = $LASTEXITCODE
+    $xsimOutput | Tee-Object -FilePath $simLog
+    if ($xsimExitCode -ne 0) {
+        throw "$xsim failed with exit code $xsimExitCode"
+    }
+    if (($xsimOutput -join [Environment]::NewLine) -notmatch "VIVADO RTL PASS") {
+        throw "Simulation completed without the expected VIVADO RTL PASS marker. Log: $simLog"
+    }
+} finally {
     Pop-Location
 }
 
-if (!(Test-Path -LiteralPath $WaveDatabase)) {
-    throw "XSIM did not produce the waveform database: $WaveDatabase"
+if (-not (Test-Path -LiteralPath $wdb)) {
+    throw "XSim did not create the waveform database: $wdb"
 }
-if (!(Select-String -LiteralPath $XsimLog -Pattern "VIVADO XSIM SHOWCASE PASS" -Quiet)) {
-    throw "XSIM completed without the required showcase PASS marker; inspect $XsimLog"
-}
-
-Write-Host "Vivado XSIM waveform written to $WaveDatabase"
+Write-Host "Waveform written to $wdb"
 
 if ($OpenGui) {
-    Start-Process -FilePath (Join-Path $VivadoBin "vivado.bat") `
-        -ArgumentList @(
-            "-mode", "gui",
-            "-source", (Join-Path $PSScriptRoot "open_waveform.tcl")
-        )
+    & $vivado "-mode" "gui" "-source" $openWaveform
 }

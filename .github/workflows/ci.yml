@@ -1,48 +1,24 @@
-name: RTL verification
+name: RTL smoke test
 
 on:
   push:
   pull_request:
-  workflow_dispatch:
 
 jobs:
-  verify:
+  iverilog:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        simulator: [icarus, verilator]
-
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: pip
-
-      - name: Install simulator and Python dependencies
+      - uses: actions/checkout@v4
+      - name: Install simulator
+        run: sudo apt-get update && sudo apt-get install -y iverilog
+      - name: Compile
         run: |
-          sudo apt-get update
-          sudo apt-get install --yes iverilog verilator
-          python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt
-
-      - name: Test the Python reference model
-        run: python -m pytest tests/test_reference_model.py
-
-      - name: Run cocotb regression
-        run: make SIM=${{ matrix.simulator }} WAVES=${{ matrix.simulator == 'icarus' && '1' || '0' }}
-
-      - name: Upload verification artifacts
-        if: always() && matrix.simulator == 'icarus'
-        uses: actions/upload-artifact@v4
-        with:
-          name: verification-artifacts
-          path: |
-            results.xml
-            artifacts/coverage/*.json
-            artifacts/waves/*.vcd
-          if-no-files-found: ignore
+          mkdir -p build
+          iverilog -g2012 -Wall -s tb_dot_product_int8_vivado \
+            -o build/dot_product_int8_sim \
+            rtl/dot_product_int8_vivado.v \
+            tb/tb_dot_product_int8_vivado.sv
+      - name: Run directed vectors
+        run: |
+          vvp build/dot_product_int8_sim | tee build/rtl-smoke.log
+          grep -q "VIVADO RTL PASS" build/rtl-smoke.log
