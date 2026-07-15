@@ -1,0 +1,398 @@
+{
+    "ltx_root": {
+        "version": 4,
+        "minor": 0,
+        "ltx_data": [
+            {
+                "name": "EDA_PROBESET",
+                "active": true,
+                "debug_cores": [
+                    {
+                        "type": "XSDB_V3",
+                        "name": "dbg_hub",
+                        "spec": "labtools_xsdbm_v3",
+                        "clk_input_freq_hz": "100000000"
+                    },
+                    {
+                        "type": "VIO_V2",
+                        "name": "control_vio",
+                        "spec": "labtools_vio_v3",
+                        "ipName": "vio",
+                        "core_location": {
+                            "user_chain": 1,
+                            "slave_index": 0,
+                            "bscan_switch_index": 0
+                        },
+                        "uuid": "85A84A6B63BD5C75A2B170ED475A80BC",
+                        "pins": [
+                            {
+                                "name": "probe_in0",
+                                "id": 0,
+                                "type": "DATA",
+                                "direction": "IN",
+                                "isVector": false,
+                                "leftIndex": 0,
+                                "rightIndex": 0,
+                                "portIndex": 0,
+                                "nets": [
+                                    {
+                                        "name": "in_ready",
+                                        "isBus": false
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe_in1",
+                                "id": 1,
+                                "type": "DATA",
+                                "direction": "IN",
+                                "isVector": false,
+                                "leftIndex": 0,
+                                "rightIndex": 0,
+                                "portIndex": 1,
+                                "nets": [
+                                    {
+                                        "name": "out_valid",
+                                        "isBus": false
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe_in2",
+                                "id": 2,
+                                "type": "DATA",
+                                "direction": "IN",
+                                "isVector": true,
+                                "leftIndex": 0,
+                                "rightIndex": 17,
+                                "portIndex": 2,
+                                "nets": [
+                                    {
+                                        "name": "out_data",
+                                        "isBus": true,
+                                        "subnets": [
+                                            {
+                                                "name": "out_data[17]"
+                                            },
+                                            {
+                                                "name": "out_data[16]"
+                                            },
+                                            {
+                                                "name": "out_data[15]"
+                                            },
+                                            {
+                                                "name": "out_data[14]"
+                                            },
+                                            {
+                                                "name": "out_data[13]"
+                                            },
+                                            {
+                                                "name": "out_data[12]"
+                                            },
+                                            {
+                                                "name": "out_data[11]"
+                                            },
+                                            {
+                                                "name": "out_data[10]"
+                                            },
+                                            {
+                                                "name": "out_data[9]"
+                                            },
+                                            {
+                                                "name": "out_data[8]"
+                                            },
+                                            {
+                                                "name": "out_data[7]"
+                                            },
+                                            {
+                                                "name": "out_data[6]"
+                                            },
+                                            {
+                                                "name": "out_data[5]"
+                                            },
+                                            {
+                                                "name": "out_data[4]"
+                                            },
+                                            {
+                                                "name": "out_data[3]"
+                                            },
+                                            {
+                                                "name": "out_data[2]"
+                                            },
+                                            {
+                                                "name": "out_data[1]"
+                                            },
+                                            {
+                                                "name": "out_data[0]"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe_out0",
+                                "id": 3,
+                                "type": "DATA",
+                                "direction": "OUT",
+                                "isVector": true,
+                                "leftIndex": 0,
+                                "rightIndex": 31,
+                                "portIndex": 0,
+                                "nets": [
+                                    {
+                                        "name": "a_vec",
+                                        "isBus": true,
+                                        "subnets": [
+                                            {
+                                                "name": "a_vec[31]"
+                                            },
+                                            {
+                                                "name": "a_vec[30]"
+                                            },
+                                            {
+                                                "name": "a_vec[29]"
+                                            },
+                                            {
+                                                "name": "a_vec[28]"
+                                            },
+                                            {
+                                                "name": "a_vec[27]"
+                                            },
+                                            {
+                                                "name": "a_vec[26]"
+                                            },
+                                            {
+                                                "name": "a_vec[25]"
+                                            },
+                                            {
+                                                "name": "a_vec[24]"
+                                            },
+                                            {
+                                                "name": "a_vec[23]"
+                                            },
+                                            {
+                                                "name": "a_vec[22]"
+                                            },
+                                            {
+                                                "name": "a_vec[21]"
+                                            },
+                                            {
+                                                "name": "a_vec[20]"
+                                            },
+                                            {
+                                                "name": "a_vec[19]"
+                                            },
+                                            {
+                                                "name": "a_vec[18]"
+                                            },
+                                            {
+                                                "name": "a_vec[17]"
+                                            },
+                                            {
+                                                "name": "a_vec[16]"
+                                            },
+                                            {
+                                                "name": "a_vec[15]"
+                                            },
+                                            {
+                                                "name": "a_vec[14]"
+                                            },
+                                            {
+                                                "name": "a_vec[13]"
+                                            },
+                                            {
+                                                "name": "a_vec[12]"
+                                            },
+                                            {
+                                                "name": "a_vec[11]"
+                                            },
+                                            {
+                                                "name": "a_vec[10]"
+                                            },
+                                            {
+                                                "name": "a_vec[9]"
+                                            },
+                                            {
+                                                "name": "a_vec[8]"
+                                            },
+                                            {
+                                                "name": "a_vec[7]"
+                                            },
+                                            {
+                                                "name": "a_vec[6]"
+                                            },
+                                            {
+                                                "name": "a_vec[5]"
+                                            },
+                                            {
+                                                "name": "a_vec[4]"
+                                            },
+                                            {
+                                                "name": "a_vec[3]"
+                                            },
+                                            {
+                                                "name": "a_vec[2]"
+                                            },
+                                            {
+                                                "name": "a_vec[1]"
+                                            },
+                                            {
+                                                "name": "a_vec[0]"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe_out1",
+                                "id": 4,
+                                "type": "DATA",
+                                "direction": "OUT",
+                                "isVector": true,
+                                "leftIndex": 0,
+                                "rightIndex": 31,
+                                "portIndex": 1,
+                                "nets": [
+                                    {
+                                        "name": "b_vec",
+                                        "isBus": true,
+                                        "subnets": [
+                                            {
+                                                "name": "b_vec[31]"
+                                            },
+                                            {
+                                                "name": "b_vec[30]"
+                                            },
+                                            {
+                                                "name": "b_vec[29]"
+                                            },
+                                            {
+                                                "name": "b_vec[28]"
+                                            },
+                                            {
+                                                "name": "b_vec[27]"
+                                            },
+                                            {
+                                                "name": "b_vec[26]"
+                                            },
+                                            {
+                                                "name": "b_vec[25]"
+                                            },
+                                            {
+                                                "name": "b_vec[24]"
+                                            },
+                                            {
+                                                "name": "b_vec[23]"
+                                            },
+                                            {
+                                                "name": "b_vec[22]"
+                                            },
+                                            {
+                                                "name": "b_vec[21]"
+                                            },
+                                            {
+                                                "name": "b_vec[20]"
+                                            },
+                                            {
+                                                "name": "b_vec[19]"
+                                            },
+                                            {
+                                                "name": "b_vec[18]"
+                                            },
+                                            {
+                                                "name": "b_vec[17]"
+                                            },
+                                            {
+                                                "name": "b_vec[16]"
+                                            },
+                                            {
+                                                "name": "b_vec[15]"
+                                            },
+                                            {
+                                                "name": "b_vec[14]"
+                                            },
+                                            {
+                                                "name": "b_vec[13]"
+                                            },
+                                            {
+                                                "name": "b_vec[12]"
+                                            },
+                                            {
+                                                "name": "b_vec[11]"
+                                            },
+                                            {
+                                                "name": "b_vec[10]"
+                                            },
+                                            {
+                                                "name": "b_vec[9]"
+                                            },
+                                            {
+                                                "name": "b_vec[8]"
+                                            },
+                                            {
+                                                "name": "b_vec[7]"
+                                            },
+                                            {
+                                                "name": "b_vec[6]"
+                                            },
+                                            {
+                                                "name": "b_vec[5]"
+                                            },
+                                            {
+                                                "name": "b_vec[4]"
+                                            },
+                                            {
+                                                "name": "b_vec[3]"
+                                            },
+                                            {
+                                                "name": "b_vec[2]"
+                                            },
+                                            {
+                                                "name": "b_vec[1]"
+                                            },
+                                            {
+                                                "name": "b_vec[0]"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe_out2",
+                                "id": 5,
+                                "type": "DATA",
+                                "direction": "OUT",
+                                "isVector": false,
+                                "leftIndex": 0,
+                                "rightIndex": 0,
+                                "portIndex": 2,
+                                "nets": [
+                                    {
+                                        "name": "in_valid",
+                                        "isBus": false
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe_out3",
+                                "id": 6,
+                                "type": "DATA",
+                                "direction": "OUT",
+                                "isVector": false,
+                                "leftIndex": 0,
+                                "rightIndex": 0,
+                                "portIndex": 3,
+                                "nets": [
+                                    {
+                                        "name": "out_ready",
+                                        "isBus": false
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

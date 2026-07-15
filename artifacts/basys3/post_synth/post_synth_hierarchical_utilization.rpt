@@ -1,0 +1,38 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Wed Jul 15 12:15:44 2026
+| Host         : Fortune running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -hierarchical_depth 4 -file V:/artifacts/basys3/post_synth/post_synth_hierarchical_utilization.rpt
+| Design       : basys3_dot_product_top
+| Device       : xc7a35tcpg236-1
+| Speed File   : -1
+| Design State : Synthesized
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++----------------------------------------+-----------------------------------+------------+------------+---------+------+-----+--------+--------+------------+
+|                Instance                |               Module              | Total LUTs | Logic LUTs | LUTRAMs | SRLs | FFs | RAMB36 | RAMB18 | DSP Blocks |
++----------------------------------------+-----------------------------------+------------+------------+---------+------+-----+--------+--------+------------+
+| basys3_dot_product_top                 |                             (top) |        529 |        529 |       0 |    0 | 626 |      0 |      0 |          0 |
+|   (basys3_dot_product_top)             |                             (top) |          1 |          1 |       0 |    0 |   0 |      0 |      0 |          0 |
+|   control_vio                          |                             vio_0 |        215 |        215 |       0 |    0 | 542 |      0 |      0 |          0 |
+|     inst                               |             vio_0_vio_v3_0_27_vio |        215 |        215 |       0 |    0 | 542 |      0 |      0 |          0 |
+|       U_XSDB_SLAVE                     |          vio_0_xsdbs_v1_0_5_xsdbs |         77 |         77 |       0 |    0 | 161 |      0 |      0 |          0 |
+|       DECODER_INST                     |         vio_0_vio_v3_0_27_decoder |         33 |         33 |       0 |    0 |  51 |      0 |      0 |          0 |
+|       PROBE_IN_INST                    |    vio_0_vio_v3_0_27_probe_in_one |         61 |         61 |       0 |    0 | 122 |      0 |      0 |          0 |
+|       PROBE_OUT_ALL_INST               |   vio_0_vio_v3_0_27_probe_out_all |         43 |         43 |       0 |    0 | 188 |      0 |      0 |          0 |
+|         G_PROBE_OUT[1].PROBE_OUT0_INST | vio_0_vio_v3_0_27_probe_out_one_0 |          9 |          9 |       0 |    0 |  81 |      0 |      0 |          0 |
+|         G_PROBE_OUT[0].PROBE_OUT0_INST |   vio_0_vio_v3_0_27_probe_out_one |         13 |         13 |       0 |    0 |  81 |      0 |      0 |          0 |
+|   dut                                  |           dot_product_int8_vivado |        313 |        313 |       0 |    0 |  84 |      0 |      0 |          0 |
++----------------------------------------+-----------------------------------+------------+------------+---------+------+-----+--------+--------+------------+
+
+
