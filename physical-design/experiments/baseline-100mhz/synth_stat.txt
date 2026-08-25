@@ -1,0 +1,65 @@
+
+21. Printing statistics.
+
+=== dot_product_int8_vivado ===
+
+        +----------------------------Count including submodules.
+        |        +-------------------Area including submodules.
+        |        |        +----------Local count, excluding submodules.
+        |        |        |        +-Local area, excluding submodules.
+        |        |        |        | 
+     1895        -     1895        - wires
+     1974        -     1974        - wire bits
+       77        -       77        - public wires
+      156        -      156        - public wire bits
+        9        -        9        - ports
+       88        -       88        - port bits
+        -        -        -        - memories
+        -        -        -        - memory bits
+        -        -        -        - processes
+     1436  2828.91     1436  2828.91 cells
+      227  241.528      227  241.528   AND2_X1
+        1     1.33        1     1.33   AND2_X2
+        4     5.32        4     5.32   AND3_X1
+        7   16.758        7   16.758   AOI211_X2
+        1    2.926        1    2.926   AOI211_X4
+      115   122.36      115   122.36   AOI21_X1
+        4    6.384        4    6.384   AOI221_X1
+        2    5.852        2    5.852   AOI221_X2
+      110    87.78      110    87.78   BUF_X1
+       14   14.896       14   14.896   BUF_X2
+        2    3.724        2    3.724   BUF_X4
+        4    3.192        4    3.192   CLKBUF_X1
+        1    1.064        1    1.064   CLKBUF_X2
+       84  379.848       84  379.848   DFF_X1
+      257 1.09E+03      257 1.09E+03   FA_X1
+      129   343.14      129   343.14   HA_X1
+       59   31.388       59   31.388   INV_X1
+       11   20.482       11   20.482   MUX2_X1
+      123   98.154      123   98.154   NAND2_X1
+       35    37.24       35    37.24   NAND3_X1
+        1    1.862        1    1.862   NAND3_X2
+        6     7.98        6     7.98   NAND4_X1
+       66   52.668       66   52.668   NOR2_X1
+        1     1.33        1     1.33   NOR2_X2
+       17   18.088       17   18.088   NOR3_X1
+        1     1.33        1     1.33   NOR4_X1
+        4    9.576        4    9.576   OAI211_X2
+       46   48.944       46   48.944   OAI21_X1
+        1    1.862        1    1.862   OAI21_X2
+        7   11.172        7   11.172   OAI221_X1
+        2    7.448        2    7.448   OAI222_X2
+        3     3.99        3     3.99   OAI22_X1
+        8    8.512        8    8.512   OR2_X1
+        2     2.66        2     2.66   OR2_X2
+        2    4.788        2    4.788   OR2_X4
+        6     7.98        6     7.98   OR3_X1
+        1    2.926        1    2.926   OR3_X4
+        2    3.192        2    3.192   OR4_X1
+        2    6.916        2    6.916   OR4_X4
+       59   94.164       59   94.164   XNOR2_X1
+        9   14.364        9   14.364   XOR2_X1
+
+   Chip area for module '\dot_product_int8_vivado': 2828.910000
+     of which used for sequential elements: 379.848000 (13.43%)
+
