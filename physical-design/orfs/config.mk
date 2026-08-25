@@ -7,3 +7,7 @@ export PLACE_DENSITY_LB_ADDON = 0.10
 export SYNTH_REPEATABLE_BUILD ?= 1
 export PDN_TCL ?= $(FLOW_HOME)/designs/nangate45/gcd/grid_strategy-M1-M4-M7.tcl
 export TNS_END_PERCENT = 100
+
+# Use the standard ORFS synthesis flow plus a structural-netlist
+# compatibility pass for OpenSTA.
+export SYNTH_SCRIPT = /work/physical-design/scripts/synth_opensta_compat.tcl
