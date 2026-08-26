@@ -30,3 +30,18 @@ Formal verification boundary:
 - PDR proved 7/20 observed outputs.
 - Remaining 13 outputs were inconclusive.
 - No RTL-to-synthesis counterexample was reported.
+
+Reproducibility versus baseline:
+- Final ODB: byte-identical
+- Final DEF: byte-identical
+- Final SDC: byte-identical
+- Final structural Verilog: byte-identical
+- Final SPEF: byte-identical after removal of *DATE metadata
+- Raw GDSII: differs only in BGNLIB/BGNSTR timestamp records
+- GDS timestamp records normalized: 64 in each file
+- Normalized GDS SHA256:
+  4f1c04fd51bd1f6a64ddc6607647db0617b522c3d1f1d050cca140c2dc62dde2
+- Normalized GDSII comparison: BYTE-IDENTICAL
+
+Conclusion:
+Enabling CTS-stage Kepler LEC did not alter the final implemented design.
