@@ -22,6 +22,12 @@ Detailed ASIC methodology and evidence are documented in
 | Verification | XSim self-checking RTL | CTS LEC PASS; RTL→synthesis SEC 7/20 outputs proved |
 | Physical checks | Vivado implementation checks | 0 route DRC; 0 antenna net/pin violations |
 
+## ASIC visual implementation evidence
+
+![OpenROAD Nangate45 final routed layout](docs/media/openroad-nangate45-final-routed-layout.png)
+
+**Nangate45 final routed ASIC implementation.** OpenROAD view of the 100 MHz four-lane signed INT8 dot-product accelerator after placement, clock-tree synthesis, detailed routing, and parasitic extraction. The final implementation completed with zero detailed-route DRC violations and zero antenna net/pin violations.
+
 ## FPGA visual implementation evidence
 
 <table>
