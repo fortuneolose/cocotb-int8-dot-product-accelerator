@@ -1,0 +1,6 @@
+Experiment: RTL -> synthesis SEC
+Engine: k_induction
+Encoding: dual_rail_steady
+Maximum k: 32
+Result: manually terminated after approximately 2.5 hours of sustained solver activity; no formal verdict obtained.
+Exit status after interruption: 130

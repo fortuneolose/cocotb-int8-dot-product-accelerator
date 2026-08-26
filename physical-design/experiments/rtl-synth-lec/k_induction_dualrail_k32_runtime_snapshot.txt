@@ -1,0 +1,8 @@
+=== k-induction runtime snapshot ===
+2026-08-26T15:59:15+01:00
+CONTAINER ID   NAME                  CPU %     MEM USAGE / LIMIT     MEM %     NET I/O   BLOCK I/O   PIDS
+7ab383bdf654   optimistic_chatelet   105.92%   179.8MiB / 23.59GiB   0.74%     0B / 0B   0B / 0B     17
+
+UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
+1000                11302               11278               0                   12:40               pts/0               00:00:00            bash -c set -ex; mkdir /tmp/xdg-run; cd /OpenROAD-flow-scripts/flow; if [ -f ../env.sh ]; then . ../env.sh; fi;cd /work/physical-design/experiments/rtl-synth-lec && kepler-formal -sv2v -v sec --sec-engine k_induction --sec-encoding dual_rail_steady -k 32 --report-skipped-pos /work/rtl/dot_product_int8_vivado.v /work/results/nangate45/dot_product_int8_vivado/lec-100mhz/1_2_yosys.v /OpenROAD-flow-scripts/flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib
+1000                11318               11302               99                  12:40               pts/0               02:26:38            kepler-formal -sv2v -v sec --sec-engine k_induction --sec-encoding dual_rail_steady -k 32 --report-skipped-pos /work/rtl/dot_product_int8_vivado.v /work/results/nangate45/dot_product_int8_vivado/lec-100mhz/1_2_yosys.v /OpenROAD-flow-scripts/flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib
