@@ -1,0 +1,32 @@
+Design: dot_product_int8_vivado
+Platform: Nangate45
+Target clock period: 10.000 ns
+Target frequency: 100 MHz
+
+Final timing slack: +5.842 ns
+Design area: 2844 um^2
+Core utilization: 41%
+
+Detailed-route DRC violations: 0
+Antenna net violations: 0
+Antenna pin violations: 0
+
+Final routed wirelength: 12991 um
+Final via count: 9237
+
+Estimated total power: 0.900 mW
+
+VDD worst-case IR drop: 1.17 mV
+VDD percentage drop: 0.11%
+
+VSS worst-case IR drop: 1.78 mV
+VSS percentage drop: 0.16%
+
+ORFS finish exit status: 0
+
+Formal verification boundary:
+- CTS timing-repair LEC: PASS; circuits reported identical / UNSAT.
+- Direct RTL-to-synthesis SEC: partial proof only.
+- PDR proved 7/20 observed outputs.
+- Remaining 13 outputs were inconclusive.
+- No RTL-to-synthesis counterexample was reported.

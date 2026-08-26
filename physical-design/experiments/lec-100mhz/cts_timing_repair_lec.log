@@ -1,0 +1,75 @@
+[2026-08-26 11:32:40.026] [miter_logger] [info] MiterStrategy::run starting
+[2026-08-26 11:32:40.026] [miter_logger] [info] Collecting POs for design 0: dot_product_int8_vivado
+
+[2026-08-26 11:32:40.039] [miter_logger] [info] Collected 236 PIs for design 0
+
+[2026-08-26 11:32:40.039] [miter_logger] [info] Collected 188 POs for design 0
+
+[2026-08-26 11:32:40.039] [miter_logger] [info] design 0 PI summary by model/term (236 total terminals, 8 unique rows):
+| Model                   | Term      | Count |
+|-------------------------|-----------|-------|
+| DFF_X1                  | Q         |    84 |
+| DFF_X1                  | QN        |    84 |
+| dot_product_int8_vivado | a_vec     |    32 |
+| dot_product_int8_vivado | b_vec     |    32 |
+| dot_product_int8_vivado | clk       |     1 |
+| dot_product_int8_vivado | in_valid  |     1 |
+| dot_product_int8_vivado | out_ready |     1 |
+| dot_product_int8_vivado | rst_n     |     1 |
+
+[2026-08-26 11:32:40.039] [miter_logger] [info] design 0 PO summary by model/term (188 total terminals, 5 unique rows):
+| Model                   | Term      | Count |
+|-------------------------|-----------|-------|
+| DFF_X1                  | CK        |    84 |
+| DFF_X1                  | D         |    84 |
+| dot_product_int8_vivado | out_data  |    18 |
+| dot_product_int8_vivado | in_ready  |     1 |
+| dot_product_int8_vivado | out_valid |     1 |
+
+[2026-08-26 11:32:40.039] [miter_logger] [info] Collecting POs for design 1: dot_product_int8_vivado
+
+[2026-08-26 11:32:40.044] [miter_logger] [info] size of common inputs: 236
+[2026-08-26 11:32:40.044] [miter_logger] [info] size of diff0 inputs: 0
+[2026-08-26 11:32:40.044] [miter_logger] [info] size of diff1 inputs: 0
+[2026-08-26 11:32:40.044] [miter_logger] [info] Collected 236 PIs for design 1
+
+[2026-08-26 11:32:40.045] [miter_logger] [info] Collected 188 POs for design 1
+
+[2026-08-26 11:32:40.045] [miter_logger] [info] design 1 PI summary by model/term (236 total terminals, 8 unique rows):
+| Model                   | Term      | Count |
+|-------------------------|-----------|-------|
+| DFF_X1                  | Q         |    84 |
+| DFF_X1                  | QN        |    84 |
+| dot_product_int8_vivado | a_vec     |    32 |
+| dot_product_int8_vivado | b_vec     |    32 |
+| dot_product_int8_vivado | clk       |     1 |
+| dot_product_int8_vivado | in_valid  |     1 |
+| dot_product_int8_vivado | out_ready |     1 |
+| dot_product_int8_vivado | rst_n     |     1 |
+
+[2026-08-26 11:32:40.045] [miter_logger] [info] design 1 PO summary by model/term (188 total terminals, 5 unique rows):
+| Model                   | Term      | Count |
+|-------------------------|-----------|-------|
+| DFF_X1                  | CK        |    84 |
+| DFF_X1                  | D         |    84 |
+| dot_product_int8_vivado | out_data  |    18 |
+| dot_product_int8_vivado | in_ready  |     1 |
+| dot_product_int8_vivado | out_valid |     1 |
+
+[2026-08-26 11:32:40.045] [miter_logger] [info] normalizeInputs: starting
+[2026-08-26 11:32:40.046] [miter_logger] [info] size of common inputs: 236
+[2026-08-26 11:32:40.046] [miter_logger] [info] size of diff0 inputs: 0
+[2026-08-26 11:32:40.046] [miter_logger] [info] size of diff1 inputs: 0
+[2026-08-26 11:32:40.046] [miter_logger] [info] normalizeOutputs: starting
+[2026-08-26 11:32:40.046] [miter_logger] [info] size of common outputs: 188
+[2026-08-26 11:32:40.046] [miter_logger] [info] size of diff0 outputs: 0
+[2026-08-26 11:32:40.046] [miter_logger] [info] size of diff1 outputs: 0
+[2026-08-26 11:32:40.047] [miter_logger] [info] size of PIs in circuit 0: 236
+[2026-08-26 11:32:40.047] [miter_logger] [info] size of PIs in circuit 1: 236
+[2026-08-26 11:32:40.047] [miter_logger] [info] size of POs in circuit 0: 188
+[2026-08-26 11:32:40.047] [miter_logger] [info] size of POs in circuit 1: 188
+[2026-08-26 11:32:40.069] [miter_logger] [info] Building miter expression
+[2026-08-26 11:32:40.069] [miter_logger] [info] Finished building miter expression
+[2026-08-26 11:32:40.069] [miter_logger] [info] Starting solver
+[2026-08-26 11:32:40.070] [miter_logger] [info] SAT solver finished: UNSAT
+[2026-08-26 11:32:40.070] [miter_logger] [info] Circuits are IDENTICAL
