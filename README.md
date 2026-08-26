@@ -1,10 +1,28 @@
-# Basys 3 INT8 Dot-Product Accelerator
+# INT8 Dot-Product Accelerator — FPGA and ASIC Implementation
 
-A four-lane signed INT8 dot-product accelerator taken past RTL simulation into a routed Vivado implementation for the Digilent Basys 3 and its Artix-7 XC7A35T FPGA.
+A four-lane signed INT8 dot-product accelerator developed from synthesizable RTL through self-checking simulation and two physical implementation targets: a routed Xilinx Artix-7 FPGA design and a Nangate45 ASIC RTL-to-GDSII flow.
 
-This repository is organized as portfolio evidence: RTL, self-checking simulation, board-level wrapper work, constraints, Vivado reports, generated bitstream/debug artifacts, and visual proof from the implementation flow.
+The repository demonstrates the same accelerator core across:
 
-## Visual implementation evidence
+- **FPGA:** Digilent Basys 3 / Artix-7 using AMD Vivado, including synthesis, placement, routing, timing closure, bitstream generation, and VIO-based debug integration.
+- **ASIC:** Nangate45 using Yosys and OpenROAD, including synthesis, floorplanning, placement, clock-tree synthesis, routing, parasitic extraction, static timing analysis, power/IR analysis, final GDSII generation, and Kepler Formal equivalence experiments.
+
+Detailed ASIC methodology and evidence are documented in
+[`physical-design/README.md`](physical-design/README.md).
+
+## Implementation overview
+
+| Target | FPGA | ASIC |
+| --- | --- | --- |
+| Platform | Xilinx Artix-7 / Basys 3 | Nangate45 |
+| Toolchain | AMD Vivado | Yosys + OpenROAD |
+| Frequency target | 100 MHz | 100 MHz |
+| Timing result | +3.528 ns setup slack | +5.842 ns reported slack |
+| Physical completion | Routed bitstream | Final GDSII |
+| Verification | XSim self-checking RTL | CTS LEC PASS; RTL→synthesis SEC 7/20 outputs proved |
+| Physical checks | Vivado implementation checks | 0 route DRC; 0 antenna net/pin violations |
+
+## FPGA visual implementation evidence
 
 <table>
   <tr>
@@ -38,7 +56,7 @@ This repository is organized as portfolio evidence: RTL, self-checking simulatio
 
 Optional video evidence: [verified Vivado XSim waveform showcase](docs/media/int8_dot_product_xsim_verified_showcase.mp4).
 
-## Implementation snapshot
+## FPGA implementation snapshot
 
 | Area | Evidence |
 | --- | --- |
