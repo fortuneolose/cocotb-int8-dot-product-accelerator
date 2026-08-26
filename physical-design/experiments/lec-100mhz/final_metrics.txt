@@ -1,0 +1,47 @@
+Design: dot_product_int8_vivado
+Platform: Nangate45
+Target clock period: 10.000 ns
+Target frequency: 100 MHz
+
+Final timing slack: +5.842 ns
+Design area: 2844 um^2
+Core utilization: 41%
+
+Detailed-route DRC violations: 0
+Antenna net violations: 0
+Antenna pin violations: 0
+
+Final routed wirelength: 12991 um
+Final via count: 9237
+
+Estimated total power: 0.900 mW
+
+VDD worst-case IR drop: 1.17 mV
+VDD percentage drop: 0.11%
+
+VSS worst-case IR drop: 1.78 mV
+VSS percentage drop: 0.16%
+
+ORFS finish exit status: 0
+
+Formal verification boundary:
+- CTS timing-repair LEC: PASS; circuits reported identical / UNSAT.
+- Direct RTL-to-synthesis SEC: partial proof only.
+- PDR proved 7/20 observed outputs.
+- Remaining 13 outputs were inconclusive.
+- No RTL-to-synthesis counterexample was reported.
+
+Reproducibility versus baseline:
+- Final ODB: byte-identical
+- Final DEF: byte-identical
+- Final SDC: byte-identical
+- Final structural Verilog: byte-identical
+- Final SPEF: byte-identical after removal of *DATE metadata
+- Raw GDSII: differs only in BGNLIB/BGNSTR timestamp records
+- GDS timestamp records normalized: 64 in each file
+- Normalized GDS SHA256:
+  4f1c04fd51bd1f6a64ddc6607647db0617b522c3d1f1d050cca140c2dc62dde2
+- Normalized GDSII comparison: BYTE-IDENTICAL
+
+Conclusion:
+Enabling CTS-stage Kepler LEC did not alter the final implemented design.

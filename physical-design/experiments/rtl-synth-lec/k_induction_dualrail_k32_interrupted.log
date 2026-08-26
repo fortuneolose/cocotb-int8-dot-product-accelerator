@@ -1,0 +1,15 @@
+[2026-08-26 12:32:36.769] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:1829] KEPLER FORMAL: Run.
+[2026-08-26 12:32:36.770] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:1844] Input format: SV2V
+[2026-08-26 12:32:36.770] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:1846] Run log: miter_log_2.txt
+[2026-08-26 12:32:36.770] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:692] Netlist 1: /work/rtl/dot_product_int8_vivado.v
+[2026-08-26 12:32:36.770] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:692] Netlist 2: /work/results/nangate45/dot_product_int8_vivado/lec-100mhz/1_2_yosys.v
+[2026-08-26 12:32:36.770] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:1994] Solver: KISSAT
+[2026-08-26 12:32:36.771] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:1995] Verification: sec
+[2026-08-26 12:32:36.771] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:1997] SEC max_k: 32
+[2026-08-26 12:32:36.771] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:1998] SEC engine: k_induction
+[2026-08-26 12:32:36.772] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:1999] SEC encoding: dual_rail_steady
+[2026-08-26 12:32:36.772] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:2001] Compact mode: disabled
+[2026-08-26 12:32:36.772] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:2002] Skipped PO reports: enabled
+[2026-08-26 12:32:36.772] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:2004] Library: /OpenROAD-flow-scripts/flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib
+[2026-08-26 12:32:36.773] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:2176] Loading library file: /OpenROAD-flow-scripts/flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib
+[2026-08-26 12:32:36.873] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:2543] Parsing systemverilog file(s) for design 1

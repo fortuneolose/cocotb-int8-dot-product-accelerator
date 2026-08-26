@@ -1,0 +1,34 @@
+[2026-08-26 12:27:27.571] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:1829] KEPLER FORMAL: Run.
+[2026-08-26 12:27:27.572] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:1844] Input format: SV2V
+[2026-08-26 12:27:27.572] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:1846] Run log: miter_log_1.txt
+[2026-08-26 12:27:27.573] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:692] Netlist 1: /work/rtl/dot_product_int8_vivado.v
+[2026-08-26 12:27:27.574] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:692] Netlist 2: /work/results/nangate45/dot_product_int8_vivado/lec-100mhz/1_2_yosys.v
+[2026-08-26 12:27:27.574] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:1994] Solver: KISSAT
+[2026-08-26 12:27:27.574] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:1995] Verification: sec
+[2026-08-26 12:27:27.575] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:1997] SEC max_k: 32
+[2026-08-26 12:27:27.575] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:1998] SEC engine: pdr
+[2026-08-26 12:27:27.575] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:1999] SEC encoding: dual_rail_steady
+[2026-08-26 12:27:27.576] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:2001] Compact mode: disabled
+[2026-08-26 12:27:27.576] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:2002] Skipped PO reports: disabled
+[2026-08-26 12:27:27.576] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:2004] Library: /OpenROAD-flow-scripts/flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib
+[2026-08-26 12:27:27.577] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:2176] Loading library file: /OpenROAD-flow-scripts/flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib
+[2026-08-26 12:27:27.711] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:2543] Parsing systemverilog file(s) for design 1
+[2026-08-26 12:29:36.575] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:2022] SEC checked-output coverage: 35.00% (7/20 covered/existing outputs).
+[2026-08-26 12:29:36.576] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:2051] SEC skipped observed outputs due to extraction or coverage limitations:
+  - out_data[5]: dual-rail PDR steady-state proof was inconclusive
+  - out_data[6]: dual-rail PDR steady-state proof was inconclusive
+  - out_data[7]: dual-rail PDR steady-state proof was inconclusive
+  - out_data[8]: dual-rail PDR steady-state proof was inconclusive
+  - out_data[9]: dual-rail PDR steady-state proof was inconclusive
+  - out_data[10]: dual-rail PDR steady-state proof was inconclusive
+  - out_data[11]: dual-rail PDR steady-state proof was inconclusive
+  - out_data[12]: dual-rail PDR steady-state proof was inconclusive
+  - out_data[13]: dual-rail PDR steady-state proof was inconclusive
+  - out_data[14]: dual-rail PDR steady-state proof was inconclusive
+  - out_data[15]: dual-rail PDR steady-state proof was inconclusive
+  - out_data[16]: dual-rail PDR steady-state proof was inconclusive
+  - out_data[17]: dual-rail PDR steady-state proof was inconclusive
+
+[2026-08-26 12:29:36.576] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:2095] SEC partially proved equivalence at k = 4: 7/20 outputs proved; remaining outputs are inconclusive.
+[2026-08-26 12:29:36.577] [kepler_formal_main_logger] [warning] [KeplerFormal.cpp:2101] SEC verification did not prove all observed outputs.
+[2026-08-26 12:29:36.577] [kepler_formal_main_logger] [info] [KeplerFormal.cpp:2104] SEC partial-proof details: Exact dual-rail PDR proved 7 of 20 observed outputs; remaining outputs are inconclusive
